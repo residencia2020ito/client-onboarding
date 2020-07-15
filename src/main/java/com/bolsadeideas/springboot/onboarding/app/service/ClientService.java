@@ -8,5 +8,4 @@ public interface ClientService {
 	
 	public void registerClient(RegisterClientTO r);
 	
-
 }

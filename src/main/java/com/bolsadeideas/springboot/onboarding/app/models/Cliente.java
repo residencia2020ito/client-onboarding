@@ -44,4 +44,5 @@ public class Cliente implements Serializable{
 	private String secondParStreet;//Segunda calle paralela
 	private String idDevice;//ID firebase
 	
+	
 }

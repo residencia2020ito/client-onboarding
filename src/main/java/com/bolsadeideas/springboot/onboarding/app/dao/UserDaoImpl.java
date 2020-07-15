@@ -21,18 +21,16 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.bolsadeideas.springboot.onboarding.app.models.Cliente;
 import com.bolsadeideas.springboot.onboarding.app.models.request.UpdateClientTO;
 
-
 @Repository
 public class UserDaoImpl implements UsersDao {
 
-	private static final Logger log=LoggerFactory.getLogger(UserDaoImpl.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
+
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
 
 	@Override
 	public void registerClient(Cliente c) {
@@ -48,35 +46,30 @@ public class UserDaoImpl implements UsersDao {
 
 	}
 
-	
 	public void update(UpdateClientTO data) {
-		HttpServletRequest request = 
-		        ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes())
-		                .getRequest();
-		HttpSession session=request.getSession();
-		String id=(String)session.getAttribute("idClient");
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("idClient");
 
 		Criteria criterioBusqueda = Criteria.where("_id").is(new ObjectId(id));
 		Query query = new Query(criterioBusqueda);
-		Update update=new Update();
-		if(Objects.nonNull(data.getName())) {
+		Update update = new Update();
+		if (Objects.nonNull(data.getName())) {
 			update.set("name", data.getName());
 		}
-		if(Objects.nonNull(data.getLastName())) {
+		if (Objects.nonNull(data.getLastName())) {
 			update.set("lastName", data.getLastName());
 		}
-		if(Objects.nonNull(data.getSecondLastName())) {
+		if (Objects.nonNull(data.getSecondLastName())) {
 			update.set("secondLastName", data.getSecondLastName());
 		}
-		if(Objects.nonNull(data.getDescriptionHouse())) {
+		if (Objects.nonNull(data.getDescriptionHouse())) {
 			update.set("descriptionHouse", data.getDescriptionHouse());
 		}
-		
-		
-		mongoTemplate.updateFirst(query, update, Cliente.class);
-		
-	}
 
-	
+		mongoTemplate.updateFirst(query, update, Cliente.class);
+
+	}
 
 }

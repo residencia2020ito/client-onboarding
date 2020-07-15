@@ -40,7 +40,6 @@ public class ClientServiceImplement implements ClientService {
 			target.setDate(new Date());
 			usersDao.registerClient(target);
 		}
-	}
-	
+	}	
 
 }
